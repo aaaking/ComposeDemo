@@ -2,6 +2,7 @@ package com.example.composedemo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.compose.Composable
 import androidx.ui.core.setContent
 import androidx.ui.foundation.Text
 
@@ -10,7 +11,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_main)
         setContent {
-            Text("Hello World")
+            mainText("gajprewjhgper")
         }
         /**
          * Jetpack Compose是围绕composable函数来构建的。
@@ -18,5 +19,13 @@ class MainActivity : AppCompatActivity() {
          * 以编程方式定义应用程序的UI，而不是着眼于UI的构建过程。
          * 要创建composable函数，只需要在函数名前面加上一个@composable注解即可, 上面的Text就是一个composable函数。
          */
+    }
+
+    /*
+    * 一个composable函数只能在另一个composable函数的作用域里被调用，要使一个函数变为composable函数，只需在函数名前加上@composable注解
+    * */
+    @Composable
+    fun mainText(name: String) {
+        Text(name)
     }
 }

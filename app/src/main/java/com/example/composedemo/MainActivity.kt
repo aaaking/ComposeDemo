@@ -50,9 +50,9 @@ class MainActivity : AppCompatActivity() {
                 .padding(30.dp, 10.dp, 0.dp, 0.dp)
                 .clickable(onClick = { clickColumn() })
         ) {
-            Greeting()
+            Greeting("1")
             Divider(color = Color.Cyan, thickness = 30.dp)
-            Greeting()
+            Greeting("2")
 //            val image = imageFromResource(resources, R.mipmap.ic_launcher)
 //            Image(
 //                asset = imageFromResource(resources, R.mipmap.ic_launcher),
@@ -84,27 +84,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     @Composable
-    fun Greeting() {
+    fun Greeting(name: String) {
         Text(
-            "abcde",
-            modifier = Modifier.background(Color.Yellow),
-            fontSize = 20.sp
-        )
-        Text(
-            "fghij",
-            modifier = Modifier.background(Color.Blue).clickable { clickText() },
+            name,
+            modifier = Modifier.background(Color.Blue).clickable { clickText(name) },
             fontSize = 40.sp
-        )
-        Text(
-            "klmno",
-            modifier = Modifier.background(Color.Green),
-            fontSize = 30.sp
         )
     }
 
-    fun clickText() {
-        Log.i(TAG, "clickText: zzh")
-        Toast.makeText(this, "clickText: zzh", Toast.LENGTH_SHORT).show()
+    fun clickText(name: String) {
+        Log.i(TAG, "clickText: zzh" + name)
+        Toast.makeText(this, "clickText: zzh" + name, Toast.LENGTH_SHORT).show()
     }
 
     fun clickColumn() {

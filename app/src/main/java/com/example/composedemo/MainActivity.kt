@@ -2,11 +2,13 @@ package com.example.composedemo
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -48,21 +50,9 @@ class MainActivity : AppCompatActivity() {
                 .padding(30.dp, 10.dp, 0.dp, 0.dp)
                 .clickable(onClick = { clickColumn() })
         ) {
-            Text(
-                "abcde",
-                modifier = Modifier.background(Color.Yellow),
-                fontSize = 20.sp
-            )
-            Text(
-                "fghij",
-                modifier = Modifier.background(Color.Blue),
-                fontSize = 40.sp
-            )
-            Text(
-                "klmno",
-                modifier = Modifier.background(Color.Green),
-                fontSize = 30.sp
-            )
+            Greeting()
+            Divider(color = Color.Cyan, thickness = 30.dp)
+            Greeting()
 //            val image = imageFromResource(resources, R.mipmap.ic_launcher)
 //            Image(
 //                asset = imageFromResource(resources, R.mipmap.ic_launcher),
@@ -91,6 +81,30 @@ class MainActivity : AppCompatActivity() {
 //                )
 //            }
         }
+    }
+
+    @Composable
+    fun Greeting() {
+        Text(
+            "abcde",
+            modifier = Modifier.background(Color.Yellow),
+            fontSize = 20.sp
+        )
+        Text(
+            "fghij",
+            modifier = Modifier.background(Color.Blue).clickable { clickText() },
+            fontSize = 40.sp
+        )
+        Text(
+            "klmno",
+            modifier = Modifier.background(Color.Green),
+            fontSize = 30.sp
+        )
+    }
+
+    fun clickText() {
+        Log.i(TAG, "clickText: zzh")
+        Toast.makeText(this, "clickText: zzh", Toast.LENGTH_SHORT).show()
     }
 
     fun clickColumn() {

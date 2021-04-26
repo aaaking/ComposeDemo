@@ -6,10 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.Composable
 import androidx.ui.core.Modifier
 import androidx.ui.core.setContent
-import androidx.ui.foundation.Canvas
-import androidx.ui.foundation.Text
-import androidx.ui.foundation.clickable
-import androidx.ui.foundation.drawBackground
+import androidx.ui.foundation.*
 import androidx.ui.geometry.Offset
 import androidx.ui.graphics.Color
 import androidx.ui.graphics.drawscope.Stroke
@@ -43,7 +40,6 @@ class MainActivity : AppCompatActivity() {
     * */
     @Composable
     fun newsStory() {
-//        var image = imageResource(R.mipmap.ic_launcher)
         Column(
             modifier = Modifier.drawBackground(Color.Red).padding(10.dp, 30.dp, 0.dp, 0.dp)
                 .fillMaxSize()
@@ -60,6 +56,10 @@ class MainActivity : AppCompatActivity() {
                 fontSize = TextUnit.Sp(40)
             )
             Text("klmno", modifier = Modifier.drawBackground(Color.Green))
+//            val painter = painterResource(id = R.mipmap.ic_launcher)
+//            Image(
+//                painter = painter
+//            )
             // 绘图
             Canvas(modifier = Modifier.fillMaxSize()) {
                 val canvasWidth = size.width

@@ -2,20 +2,20 @@ package com.example.composedemo
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.Composable
-import androidx.ui.core.Modifier
-import androidx.ui.core.setContent
-import androidx.ui.foundation.*
-import androidx.ui.geometry.Offset
-import androidx.ui.graphics.Color
-import androidx.ui.graphics.drawscope.Stroke
-import androidx.ui.layout.Column
-import androidx.ui.layout.fillMaxSize
-import androidx.ui.layout.padding
-import androidx.ui.res.imageResource
-import androidx.ui.unit.TextUnit
-import androidx.ui.unit.dp
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -25,7 +25,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            newsStory()
+            Surface(color = MaterialTheme.colors.primary) {
+                newsStory()
+            }
         }
         /**
          * Jetpack Compose是围绕composable函数来构建的。
@@ -41,46 +43,65 @@ class MainActivity : AppCompatActivity() {
     @Composable
     fun newsStory() {
         Column(
-            modifier = Modifier.drawBackground(Color.Red).padding(10.dp, 30.dp, 0.dp, 0.dp)
-                .fillMaxSize()
+            modifier = Modifier.height(height = 300.dp).fillMaxWidth()
+                .background(Color.Red)
+                .padding(30.dp, 10.dp, 0.dp, 0.dp)
                 .clickable(onClick = { clickColumn() })
         ) {
             Text(
                 "abcde",
-                modifier = Modifier.drawBackground(Color.Yellow),
-                fontSize = TextUnit.Sp(20)
+                modifier = Modifier.background(Color.Yellow),
+                fontSize = 20.sp
             )
             Text(
                 "fghij",
-                modifier = Modifier.drawBackground(Color.Blue),
-                fontSize = TextUnit.Sp(40)
+                modifier = Modifier.background(Color.Blue),
+                fontSize = 40.sp
             )
-            Text("klmno", modifier = Modifier.drawBackground(Color.Green))
-//            val painter = painterResource(id = R.mipmap.ic_launcher)
+            Text(
+                "klmno",
+                modifier = Modifier.background(Color.Green),
+                fontSize = 30.sp
+            )
+//            val image = imageFromResource(resources, R.mipmap.ic_launcher)
+//            Image(
+//                asset = imageFromResource(resources, R.mipmap.ic_launcher),
+//                modifier = Modifier.preferredHeightIn(160.dp, 260.dp)
+//                    .fillMaxWidth(),
+//                contentScale = ContentScale.Crop
+//            )
 //            Image(
 //                painter = painter
 //            )
             // 绘图
-            Canvas(modifier = Modifier.fillMaxSize()) {
-                val canvasWidth = size.width
-                val canvasHeight = size.height
-                drawLine(
-                    color = Color.White,
-                    p1 = Offset(dx = 0f, dy = 0f),
-                    p2 = Offset(dx = canvasWidth, dy = 0f),
-                    stroke = Stroke()
-                )
-                drawLine(
-                    color = Color.Blue,
-                    p1 = Offset(dx = canvasWidth, dy = 0f),
-                    p2 = Offset(dx = 0f, dy = canvasHeight),
-                    stroke = Stroke()
-                )
-            }
+//            Canvas(modifier = Modifier.fillMaxSize()) {
+//                val canvasWidth = size.width
+//                val canvasHeight = size.height
+//                drawLine(
+//                    color = Color.White,
+//                    p1 = Offset(dx = 0f, dy = 0f),
+//                    p2 = Offset(dx = canvasWidth, dy = 0f),
+//                    stroke = Stroke()
+//                )
+//                drawLine(
+//                    color = Color.Blue,
+//                    p1 = Offset(dx = canvasWidth, dy = 0f),
+//                    p2 = Offset(dx = 0f, dy = canvasHeight),
+//                    stroke = Stroke()
+//                )
+//            }
         }
     }
 
     fun clickColumn() {
         Log.i(TAG, "clickColumn: zzh")
+    }
+
+    @Preview(showBackground = true, name = "Text Preview")
+    @Composable
+    fun DefaultPreview() {
+//        ComposeDemoTheme {
+//        }
+        newsStory()
     }
 }

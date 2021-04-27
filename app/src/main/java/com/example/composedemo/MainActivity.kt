@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity() {
     fun Counter(count: Int, update: (Int) -> Unit) {
         Button(
             onClick = { update(count + 1) }, colors = ButtonDefaults.buttonColors(
-                backgroundColor = if (count > 5) Color.Red else Color.Gray
+                backgroundColor = if (count > 5) Color.Gray else Color.White
             )
         ) {
             Text("you have click ${count} times")

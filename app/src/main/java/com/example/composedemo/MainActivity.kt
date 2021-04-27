@@ -49,10 +49,12 @@ class MainActivity : AppCompatActivity() {
                 .padding(0.dp, 10.dp, 0.dp, 0.dp)
                 .clickable(onClick = { clickColumn() })
         ) {
-            for (i in names.indices) {
-                Greeting(names[i])
-                if (i != names.lastIndex) {
-                    Divider(color = Color.Cyan, thickness = 10.dp)
+            Column(modifier = Modifier.weight(1f)) {
+                for (i in names.indices) {
+                    Greeting(names[i])
+                    if (i != names.lastIndex) {
+                        Divider(color = Color.Cyan, thickness = 10.dp)
+                    }
                 }
             }
             //
@@ -118,7 +120,11 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     fun Counter(count: Int, update: (Int) -> Unit) {
-        Button(onClick = { update(count + 1) }) {
+        Button(
+            onClick = { update(count + 1) }, colors = ButtonDefaults.buttonColors(
+                backgroundColor = if (count > 5) Color.Red else Color.Gray
+            )
+        ) {
             Text("you have click ${count} times")
         }
     }

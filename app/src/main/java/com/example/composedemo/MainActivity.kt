@@ -8,11 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,16 +42,20 @@ class MainActivity : AppCompatActivity() {
     * 一个composable函数只能在另一个composable函数的作用域里被调用，要使一个函数变为composable函数，只需在函数名前加上@composable注解
     * */
     @Composable
-    fun newsStory() {
+    fun newsStory(names: List<String> = listOf("Android", "Windows")) {
         Column(
             modifier = Modifier.height(height = 300.dp).fillMaxWidth()
                 .background(Color.Red)
-                .padding(30.dp, 10.dp, 0.dp, 0.dp)
+                .padding(0.dp, 10.dp, 0.dp, 0.dp)
                 .clickable(onClick = { clickColumn() })
         ) {
-            Greeting("1")
-            Divider(color = Color.Cyan, thickness = 30.dp)
-            Greeting("2")
+            for (i in names.indices) {
+                Greeting(names[i])
+                if (i != names.lastIndex) {
+                    Divider(color = Color.Cyan, thickness = 10.dp)
+                }
+            }
+            Counter()
 //            val image = imageFromResource(resources, R.mipmap.ic_launcher)
 //            Image(
 //                asset = imageFromResource(resources, R.mipmap.ic_launcher),
@@ -107,5 +110,13 @@ class MainActivity : AppCompatActivity() {
 //        ComposeDemoTheme {
 //        }
         newsStory()
+    }
+
+    @Composable
+    fun Counter() {
+        val count = remember { mutableStateOf(0) }
+        Button(onClick = { count.value++ }) {
+            Text("you have click ${count.value} times")
+        }
     }
 }

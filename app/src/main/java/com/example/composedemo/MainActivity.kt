@@ -55,7 +55,11 @@ class MainActivity : AppCompatActivity() {
                     Divider(color = Color.Cyan, thickness = 10.dp)
                 }
             }
-            Counter()
+            //
+            val counterState = remember { mutableStateOf(0) }
+            Counter(count = counterState.value, update = { newValue ->
+                counterState.value = newValue
+            })
 //            val image = imageFromResource(resources, R.mipmap.ic_launcher)
 //            Image(
 //                asset = imageFromResource(resources, R.mipmap.ic_launcher),
@@ -113,10 +117,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     @Composable
-    fun Counter() {
-        val count = remember { mutableStateOf(0) }
-        Button(onClick = { count.value++ }) {
-            Text("you have click ${count.value} times")
+    fun Counter(count: Int, update: (Int) -> Unit) {
+        Button(onClick = { update(count + 1) }) {
+            Text("you have click ${count} times")
         }
     }
 }

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -42,21 +43,14 @@ class MainActivity : AppCompatActivity() {
     * 一个composable函数只能在另一个composable函数的作用域里被调用，要使一个函数变为composable函数，只需在函数名前加上@composable注解
     * */
     @Composable
-    fun newsStory(names: List<String> = listOf("Android", "Windows")) {
+    fun newsStory(names: List<String> = List(1000) { "Hello Android #$it" }) {
         Column(
             modifier = Modifier.height(height = 300.dp).fillMaxWidth()
                 .background(Color.Red)
                 .padding(0.dp, 10.dp, 0.dp, 0.dp)
                 .clickable(onClick = { clickColumn() })
         ) {
-            Column(modifier = Modifier.weight(1f)) {
-                for (i in names.indices) {
-                    Greeting(names[i])
-                    if (i != names.lastIndex) {
-                        Divider(color = Color.Cyan, thickness = 10.dp)
-                    }
-                }
-            }
+            NameList(names, Modifier.weight(1f))
             //
             val counterState = remember { mutableStateOf(0) }
             Counter(count = counterState.value, update = { newValue ->
@@ -93,11 +87,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     @Composable
+    fun NameList(names: List<String>, modifier: Modifier = Modifier) {
+        LazyColumn(modifier = modifier) {
+            items(names.size) { i ->
+                Greeting(names[i])
+                Divider(color = Color.Cyan, thickness = 10.dp)
+            }
+        }
+    }
+
+    @Composable
     fun Greeting(name: String) {
         Text(
             name,
             modifier = Modifier.background(Color.Blue).clickable { clickText(name) },
-            fontSize = 40.sp
+            fontSize = 20.sp
         )
     }
 

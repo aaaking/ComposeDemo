@@ -105,7 +105,8 @@ class MainActivity : AppCompatActivity() {
                 isSelected = !isSelected
             }.padding(5.dp)
                 .background(color = txtBgColor),
-            fontSize = 20.sp
+            fontSize = 20.sp,
+            style = MaterialTheme.typography.h1
         )
     }
 

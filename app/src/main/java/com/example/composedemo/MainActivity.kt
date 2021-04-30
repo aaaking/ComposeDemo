@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     * 一个composable函数只能在另一个composable函数的作用域里被调用，要使一个函数变为composable函数，只需在函数名前加上@composable注解
     * */
     @Composable
-    fun newsStory(names: List<String> = List(1000) { "Hello Android #$it" }) {
+    fun newsStory(names: List<String> = List(50) { "Hello Android #$it" }) {
         Column(
             modifier = Modifier.height(height = 300.dp).fillMaxWidth()
                 .background(Color.Red)
@@ -98,9 +99,13 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     fun Greeting(name: String) {
+//        var isSelected by remember { mutableStateOf(false) }
+//        val txtBgColor = animateColorAsState(if (isSelected) Color.Red else Color.Yellow)
         Text(
             name,
-            modifier = Modifier.background(Color.Blue).clickable { clickText(name) },
+            modifier = Modifier.background(Color.Blue).clickable {
+
+            }.padding(5.dp),
             fontSize = 20.sp
         )
     }
@@ -124,12 +129,14 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     fun Counter(count: Int, update: (Int) -> Unit) {
-        Button(
-            onClick = { update(count + 1) }, colors = ButtonDefaults.buttonColors(
-                backgroundColor = if (count > 5) Color.Gray else Color.White
-            )
-        ) {
-            Text("you have click ${count} times")
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+            Button(
+                onClick = { update(count + 1) }, colors = ButtonDefaults.buttonColors(
+                    backgroundColor = if (count > 5) Color.Gray else Color.White
+                ),
+            ) {
+                Text("you have click ${count} times")
+            }
         }
     }
 }

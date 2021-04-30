@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
                 .padding(0.dp, 10.dp, 0.dp, 0.dp)
                 .clickable(onClick = { clickColumn() })
         ) {
+//            val viewModel: ConversationViewModel = viewModel()
             NameList(names, Modifier.weight(1f))
             //
             val counterState = remember { mutableStateOf(0) }

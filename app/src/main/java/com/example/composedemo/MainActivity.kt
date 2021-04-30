@@ -11,9 +11,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -99,13 +97,14 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     fun Greeting(name: String) {
-//        var isSelected by remember { mutableStateOf(false) }
-//        val txtBgColor = animateColorAsState(if (isSelected) Color.Red else Color.Yellow)
+        var isSelected by remember { mutableStateOf(false) }
+        val txtBgColor by animateColorAsState(if (isSelected) Color.Yellow else Color.Transparent)
         Text(
             name,
             modifier = Modifier.background(Color.Blue).clickable {
-
-            }.padding(5.dp),
+                isSelected = !isSelected
+            }.padding(5.dp)
+                .background(color = txtBgColor),
             fontSize = 20.sp
         )
     }
@@ -131,7 +130,8 @@ class MainActivity : AppCompatActivity() {
     fun Counter(count: Int, update: (Int) -> Unit) {
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
             Button(
-                onClick = { update(count + 1) }, colors = ButtonDefaults.buttonColors(
+                onClick = { update(count + 1) },
+                colors = ButtonDefaults.buttonColors(
                     backgroundColor = if (count > 5) Color.Gray else Color.White
                 ),
             ) {

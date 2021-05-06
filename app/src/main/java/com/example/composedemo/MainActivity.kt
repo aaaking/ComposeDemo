@@ -61,16 +61,6 @@ class MainActivity : AppCompatActivity() {
             Counter(count = counterState.value, update = { newValue ->
                 counterState.value = newValue
             })
-//            val image = imageFromResource(resources, R.mipmap.ic_launcher)
-//            Image(
-//                asset = imageFromResource(resources, R.mipmap.ic_launcher),
-//                modifier = Modifier.preferredHeightIn(160.dp, 260.dp)
-//                    .fillMaxWidth(),
-//                contentScale = ContentScale.Crop
-//            )
-//            Image(
-//                painter = painter
-//            )
             // 绘图
 //            Canvas(modifier = Modifier.fillMaxSize()) {
 //                val canvasWidth = size.width
@@ -125,11 +115,13 @@ class MainActivity : AppCompatActivity() {
         Log.i(TAG, "clickColumn: zzh")
     }
 
+    @ExperimentalAnimationApi
     @Preview(showBackground = true, name = "Text Preview")
     @Composable
     fun DefaultPreview() {
 //        ComposeDemoTheme {
 //        }
+        NewsStory()
     }
 
     @Composable

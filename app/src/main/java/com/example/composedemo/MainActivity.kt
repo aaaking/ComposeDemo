@@ -1,5 +1,6 @@
 package com.example.composedemo
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -14,6 +15,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -26,16 +29,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     lateinit var viewModel: HelloViewModel
     lateinit var recyclerView: Any
+    lateinit var listState: LazyListState
+    lateinit var coroutineScope: CoroutineScope
 
     companion object {
         val TAG = MainActivity::class.simpleName
@@ -45,6 +53,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            listState = rememberLazyListState()
+            coroutineScope = rememberCoroutineScope()
             viewModel = viewModel()
             val names by viewModel.names.observeAsState()
             Surface(color = MaterialTheme.colors.primary) {
@@ -81,6 +91,12 @@ class MainActivity : AppCompatActivity() {
             Counter(count = counterState.value, update = { newValue ->
                 counterState.value = newValue
                 viewModel.addItem("add ".plus(newValue))
+                coroutineScope.launch {
+                    listState.scrollToItem(
+                        viewModel.names.value!!.size,
+                        50 * Resources.getSystem().displayMetrics.density.toInt()
+                    )
+                }
             })
             // 绘图
             Canvas(modifier = Modifier.fillMaxWidth().height(100.dp)) {
@@ -103,8 +119,9 @@ class MainActivity : AppCompatActivity() {
     @Composable
     fun NameList(names: List<String>, modifier: Modifier = Modifier) {
         recyclerView = LazyColumn(
+            state = listState,
             modifier = modifier.background(Color.Yellow),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 32.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 0.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             items(names.size) { i ->
@@ -122,7 +139,7 @@ class MainActivity : AppCompatActivity() {
             name,
             modifier = Modifier.background(Color.Blue).clickable {
                 isSelected = !isSelected
-            }.padding(5.dp)
+            }.height(38.dp).padding(2.dp)
                 .background(color = txtBgColor),
             fontSize = 20.sp,
             style = MaterialTheme.typography.h1

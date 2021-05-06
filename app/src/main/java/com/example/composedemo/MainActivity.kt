@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                 .padding(0.dp, 0.dp, 0.dp, 0.dp)
                 .clickable(onClick = { clickColumn() })
         ) {
-            var expanded by remember { mutableStateOf(false) }
+            var expanded by rememberSaveable { mutableStateOf(false) }
             Column(Modifier.clickable { expanded = !expanded }) {
                 Image(
                     painterResource(R.mipmap.test),

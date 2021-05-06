@@ -37,6 +37,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.codelab.basics.ui.BasicsCodelabTheme
 import com.example.composedemo.countdownAnimate.CountdownAnimateAC
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -166,9 +167,9 @@ class MainActivity : AppCompatActivity() {
     @Preview(showBackground = true, name = "Text Preview")
     @Composable
     fun DefaultPreview() {
-//        ComposeDemoTheme {
-//        }
-        NewsStory(List(50) { "Hello $it" })
+        BasicsCodelabTheme {
+            NewsStory(List(50) { "Hello $it" })
+        }
     }
 
     @Composable

@@ -8,6 +8,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.tooling.preview.Preview
+import com.codelab.basics.ui.BasicsCodelabTheme
 
 enum class Screen {
     Input, Countdown
@@ -38,6 +40,22 @@ class CountdownAnimateAC : AppCompatActivity() {
                     Text(TAG + "MyApp: Countdown")
                 }
             }
+        }
+    }
+
+    @Preview("Light Theme", widthDp = 360, heightDp = 640)
+    @Composable
+    fun LightPreview() {
+        BasicsCodelabTheme {
+            MyApp()
+        }
+    }
+
+    @Preview("Dark Theme", widthDp = 360, heightDp = 640)
+    @Composable
+    fun DarkPreview() {
+        BasicsCodelabTheme(darkTheme = true) {
+            MyApp()
         }
     }
 }

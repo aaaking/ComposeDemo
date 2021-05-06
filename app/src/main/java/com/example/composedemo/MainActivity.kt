@@ -35,6 +35,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 class MainActivity : AppCompatActivity() {
     lateinit var viewModel: HelloViewModel
+    lateinit var recyclerView: Any
 
     companion object {
         val TAG = MainActivity::class.simpleName
@@ -101,7 +102,10 @@ class MainActivity : AppCompatActivity() {
 
     @Composable
     fun NameList(names: List<String>, modifier: Modifier = Modifier) {
-        LazyColumn(modifier = modifier) {
+        recyclerView = LazyColumn(
+            modifier = modifier.background(Color.Yellow),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 32.dp)
+        ) {
             items(names.size) { i ->
                 Greeting(names[i])
                 Divider(color = Color.Cyan, thickness = 10.dp)
@@ -112,7 +116,7 @@ class MainActivity : AppCompatActivity() {
     @Composable
     fun Greeting(name: String) {
         var isSelected by remember { mutableStateOf(false) }
-        val txtBgColor by animateColorAsState(if (isSelected) Color.Yellow else Color.Transparent)
+        val txtBgColor by animateColorAsState(if (isSelected) Color.Red else Color.Transparent)
         Text(
             name,
             modifier = Modifier.background(Color.Blue).clickable {

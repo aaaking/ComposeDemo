@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".CountdownAnimateAC" />
+        <activity android:name=".countdownAnimate.CountdownAnimateAC" />
     </application>
 
 </manifest>

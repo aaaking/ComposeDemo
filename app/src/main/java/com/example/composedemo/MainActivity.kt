@@ -2,7 +2,6 @@ package com.example.composedemo
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.compose.setContent
@@ -38,6 +37,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.composedemo.countdownAnimate.CountdownAnimateAC
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

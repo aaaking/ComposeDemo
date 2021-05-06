@@ -13,6 +13,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -92,10 +93,11 @@ class MainActivity : AppCompatActivity() {
                 counterState.value = newValue
                 viewModel.addItem("add ".plus(newValue))
                 coroutineScope.launch {
-                    listState.scrollToItem(
-                        viewModel.names.value!!.size,
-                        50 * Resources.getSystem().displayMetrics.density.toInt()
-                    )
+//                    listState.scrollToItem(
+//                        viewModel.names.value!!.size,
+//                        50 * Resources.getSystem().displayMetrics.density.toInt()
+//                    )
+                    listState.animateScrollBy(200000f) // can scroll to bottom
                 }
             })
             // 绘图

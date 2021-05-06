@@ -5,7 +5,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -14,6 +17,8 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorMatrix
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         val TAG = MainActivity::class.simpleName
     }
 
+    @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -37,14 +43,22 @@ class MainActivity : AppCompatActivity() {
     /*
     * 一个composable函数只能在另一个composable函数的作用域里被调用，要使一个函数变为composable函数，只需在函数名前加上@composable注解
     * */
+    @ExperimentalAnimationApi
     @Composable
     fun newsStory(names: List<String> = List(50) { "Hello Android #$it" }) {
         Column(
             modifier = Modifier.height(height = 300.dp).fillMaxWidth()
                 .background(Color.Red)
-                .padding(0.dp, 10.dp, 0.dp, 0.dp)
+                .padding(0.dp, 0.dp, 0.dp, 0.dp)
                 .clickable(onClick = { clickColumn() })
         ) {
+            var expanded by remember { mutableStateOf(false) }
+            Column(Modifier.clickable { expanded = !expanded }) {
+                Image(painterResource(R.mipmap.ic_launcher_round2), "aweg")
+                AnimatedVisibility(expanded) {
+                    Text(text = "awpojgporp")
+                }
+            }
             NameList(names, Modifier.weight(1f))
             //
             val counterState = remember { mutableStateOf(0) }

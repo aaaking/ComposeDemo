@@ -13,10 +13,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -50,7 +53,13 @@ class MainActivity : AppCompatActivity() {
         ) {
             var expanded by remember { mutableStateOf(false) }
             Column(Modifier.clickable { expanded = !expanded }) {
-                Image(painterResource(R.mipmap.ic_launcher_round2), "aweg")
+                Image(
+                    painterResource(R.mipmap.test),
+                    "aweg",
+                    modifier = Modifier.height(60.dp).width(60.dp)
+                        .clip(shape = RoundedCornerShape(15.dp)),
+                    contentScale = ContentScale.Crop
+                )
                 AnimatedVisibility(expanded) {
                     Text(text = "awpojgporp")
                 }

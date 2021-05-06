@@ -17,7 +17,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,17 +34,14 @@ class MainActivity : AppCompatActivity() {
             Surface(color = MaterialTheme.colors.primary) {
 //                val viewModel: ConversationViewModel = viewModel()
 //                val names by viewModel.messages.observeAsState()
-                newsStory()
+                NewsStory()
             }
         }
     }
 
-    /*
-    * 一个composable函数只能在另一个composable函数的作用域里被调用，要使一个函数变为composable函数，只需在函数名前加上@composable注解
-    * */
     @ExperimentalAnimationApi
     @Composable
-    fun newsStory(names: List<String> = List(50) { "Hello Android #$it" }) {
+    fun NewsStory(names: List<String> = List(50) { "Hello Android #$it" }) {
         Column(
             modifier = Modifier.height(height = 300.dp).fillMaxWidth()
                 .background(Color.Red)

@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity() {
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 0.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            items(names.size) { i ->
+            items(names.size, key = { i -> i }) { i ->
                 Greeting(names[i])
                 Divider(color = Color.Cyan, thickness = 2.dp)
             }

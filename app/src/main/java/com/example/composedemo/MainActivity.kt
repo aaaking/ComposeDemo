@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -25,8 +26,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
+    lateinit var viewModel: HelloViewModel
+
     companion object {
         val TAG = MainActivity::class.simpleName
     }
@@ -35,17 +43,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            viewModel = viewModel()
+            val names by viewModel.names.observeAsState()
             Surface(color = MaterialTheme.colors.primary) {
-//                val viewModel: ConversationViewModel = viewModel()
-//                val names by viewModel.messages.observeAsState()
-                NewsStory()
+                NewsStory(names!!)
             }
         }
     }
 
     @ExperimentalAnimationApi
     @Composable
-    fun NewsStory(names: List<String> = List(50) { "Hello Android #$it" }) {
+    fun NewsStory(names: List<String>) {
         Column(
             modifier = Modifier.height(height = 300.dp).fillMaxWidth()
                 .background(Color.Red)
@@ -70,6 +78,7 @@ class MainActivity : AppCompatActivity() {
             val counterState = remember { mutableStateOf(0) }
             Counter(count = counterState.value, update = { newValue ->
                 counterState.value = newValue
+                viewModel.addItem("add ".plus(newValue))
             })
             // 绘图
 //            Canvas(modifier = Modifier.fillMaxSize()) {
@@ -131,7 +140,7 @@ class MainActivity : AppCompatActivity() {
     fun DefaultPreview() {
 //        ComposeDemoTheme {
 //        }
-        NewsStory()
+        NewsStory(List(50) { "Hello $it" })
     }
 
     @Composable
@@ -143,8 +152,20 @@ class MainActivity : AppCompatActivity() {
                     backgroundColor = if (count > 5) Color.Gray else Color.White
                 ),
             ) {
-                Text("you have click ${count} times")
+                val str = "you have click ${count} times"
+                Text(str)
             }
+        }
+    }
+
+    class HelloViewModel : ViewModel() {
+        private val _names =
+            MutableLiveData<MutableList<String>>(MutableList(20) { "Hello Android #$it" })
+        val names: LiveData<MutableList<String>>
+            get() = _names
+
+        fun addItem(item: String) {
+            _names.value?.add(item)
         }
     }
 }

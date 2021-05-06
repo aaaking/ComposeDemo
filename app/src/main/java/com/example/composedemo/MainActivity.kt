@@ -104,11 +104,12 @@ class MainActivity : AppCompatActivity() {
     fun NameList(names: List<String>, modifier: Modifier = Modifier) {
         recyclerView = LazyColumn(
             modifier = modifier.background(Color.Yellow),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 32.dp)
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 32.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             items(names.size) { i ->
                 Greeting(names[i])
-                Divider(color = Color.Cyan, thickness = 10.dp)
+                Divider(color = Color.Cyan, thickness = 2.dp)
             }
         }
     }

@@ -89,7 +89,6 @@ class MainActivity : AppCompatActivity() {
             modifier = Modifier.height(height = 500.dp).fillMaxWidth()
                 .background(Color.Red)
                 .padding(0.dp, 0.dp, 0.dp, 0.dp)
-                .clickable(onClick = { clickColumn() })
         ) {
             var expanded by rememberSaveable { mutableStateOf(false) }
             Column(Modifier.clickable { expanded = !expanded }) {
@@ -165,10 +164,6 @@ class MainActivity : AppCompatActivity() {
             fontSize = 20.sp,
             style = MaterialTheme.typography.h1
         )
-    }
-
-    fun clickColumn() {
-        Log.i(TAG, "clickColumn: zzh")
     }
 
     @ExperimentalAnimationApi

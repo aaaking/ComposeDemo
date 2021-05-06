@@ -27,15 +27,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Surface(color = MaterialTheme.colors.primary) {
+//                val viewModel: ConversationViewModel = viewModel()
+//                val names by viewModel.messages.observeAsState()
                 newsStory()
             }
         }
-        /**
-         * Jetpack Compose是围绕composable函数来构建的。
-         * 这些函数使你可以通过描述应用程序的形状和数据依赖，
-         * 以编程方式定义应用程序的UI，而不是着眼于UI的构建过程。
-         * 要创建composable函数，只需要在函数名前面加上一个@composable注解即可, 上面的Text就是一个composable函数。
-         */
     }
 
     /*
@@ -49,7 +45,8 @@ class MainActivity : AppCompatActivity() {
                 .padding(0.dp, 10.dp, 0.dp, 0.dp)
                 .clickable(onClick = { clickColumn() })
         ) {
-//            val viewModel: ConversationViewModel = viewModel()
+            var selectAll by remember { mutableStateOf(false) }
+            Checkbox(checked = selectAll, onCheckedChange = { checked -> selectAll = checked })
             NameList(names, Modifier.weight(1f))
             //
             val counterState = remember { mutableStateOf(0) }
@@ -125,7 +122,6 @@ class MainActivity : AppCompatActivity() {
     fun DefaultPreview() {
 //        ComposeDemoTheme {
 //        }
-        newsStory()
     }
 
     @Composable

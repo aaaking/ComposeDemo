@@ -124,11 +124,6 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    fun clickText(name: String) {
-        Log.i(TAG, "clickText: zzh" + name)
-        Toast.makeText(this, "clickText: zzh" + name, Toast.LENGTH_SHORT).show()
-    }
-
     fun clickColumn() {
         Log.i(TAG, "clickColumn: zzh")
     }

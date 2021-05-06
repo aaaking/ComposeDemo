@@ -3,6 +3,8 @@ package com.example.composedemo
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -65,6 +67,19 @@ class MainActivity : AppCompatActivity() {
                 NewsStory(names!!)
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val itemId = item.itemId
+        if (itemId == R.id.countAnimate) {
+            Toast.makeText(this, "fjaojhg", Toast.LENGTH_SHORT).show()
+        }
+        return false
     }
 
     @ExperimentalAnimationApi

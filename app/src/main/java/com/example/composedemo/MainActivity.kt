@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,6 +21,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -54,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     @Composable
     fun NewsStory(names: List<String>) {
         Column(
-            modifier = Modifier.height(height = 300.dp).fillMaxWidth()
+            modifier = Modifier.height(height = 500.dp).fillMaxWidth()
                 .background(Color.Red)
                 .padding(0.dp, 0.dp, 0.dp, 0.dp)
                 .clickable(onClick = { clickColumn() })
@@ -80,22 +82,20 @@ class MainActivity : AppCompatActivity() {
                 viewModel.addItem("add ".plus(newValue))
             })
             // 绘图
-//            Canvas(modifier = Modifier.fillMaxSize()) {
-//                val canvasWidth = size.width
-//                val canvasHeight = size.height
-//                drawLine(
-//                    color = Color.White,
-//                    p1 = Offset(dx = 0f, dy = 0f),
-//                    p2 = Offset(dx = canvasWidth, dy = 0f),
-//                    stroke = Stroke()
-//                )
-//                drawLine(
-//                    color = Color.Blue,
-//                    p1 = Offset(dx = canvasWidth, dy = 0f),
-//                    p2 = Offset(dx = 0f, dy = canvasHeight),
-//                    stroke = Stroke()
-//                )
-//            }
+            Canvas(modifier = Modifier.fillMaxWidth().height(100.dp)) {
+                val canvasWidth = size.width
+                val canvasHeight = size.height
+                drawLine(
+                    start = Offset(x = 0f, y = 0f),
+                    end = Offset(x = canvasWidth, y = 0f),
+                    color = Color.White
+                )
+                drawLine(
+                    start = Offset(x = canvasWidth, y = 0f),
+                    end = Offset(x = 0f, y = canvasHeight),
+                    color = Color.Blue
+                )
+            }
         }
     }
 

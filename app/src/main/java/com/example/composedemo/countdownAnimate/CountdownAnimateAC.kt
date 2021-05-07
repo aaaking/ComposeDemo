@@ -40,8 +40,8 @@ class CountdownAnimateAC : AppCompatActivity() {
                         screen = Screen.Countdown
                     }
                 }
-                Screen.Countdown -> {
-                    Text(TAG + " MyApp: Countdown")
+                Screen.Countdown -> CountdownScreen(timeInSec) {
+                    screen = Screen.Input
                 }
             }
         }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Backspace
@@ -13,8 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.codelab.basics.ui.typography
@@ -37,11 +40,11 @@ fun InputScreen2(onStart: (i: Int) -> Unit) {
         }
     }
 
-    val hasCountdownValue = remember(input) { input.isEmpty() }
+    val hasCountdownValue = remember(input) { input.isNotEmpty() }
     Column(modifier = Modifier.fillMaxHeight()) {
         Text(
             modifier = Modifier.fillMaxWidth().padding(30.dp),
-            text = stringResource(R.string.app_name),
+            text = "",
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Bold
         )
@@ -84,8 +87,33 @@ fun InputScreen2(onStart: (i: Int) -> Unit) {
 }
 
 @Composable
-fun DisplayTime(num: String, label: String, heightLight: Boolean = true) {
-
+fun RowScope.DisplayTime(
+    num: String,
+    label: String,
+    heightLight: Boolean = true,
+    fontSize: TextUnit = displayFontSize,
+    labelSize: TextUnit = TextUnit.Unspecified,
+    textAlign: TextAlign = TextAlign.End
+) {
+    val textColor = if (heightLight) MaterialTheme.colors.primary else Color.Unspecified.copy(0.5f)
+    Text(
+        num,
+        Modifier.weight(1f).align(Alignment.CenterVertically),
+        textAlign = textAlign,
+        fontSize = fontSize,
+        fontFamily = FontFamily.Cursive,
+        color = textColor,
+        style = typography.subtitle1
+    )
+    if (label.isNotEmpty()) {
+        Text(
+            modifier = Modifier.padding(top = 20.dp).align(Alignment.CenterVertically),
+            text = label,
+            fontSize = labelSize,
+            color = textColor
+        )
+        Spacer(modifier = Modifier.width(15.dp))
+    }
 }
 
 @Composable

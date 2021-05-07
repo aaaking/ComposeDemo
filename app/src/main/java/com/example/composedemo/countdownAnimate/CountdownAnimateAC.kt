@@ -15,6 +15,9 @@ enum class Screen {
     Input, Countdown
 }
 
+/**
+ * 项目地址：https://juejin.cn/post/6936918974399512612#heading-11
+ */
 class CountdownAnimateAC : AppCompatActivity() {
     companion object {
         val TAG = CountdownAnimateAC::class.java.simpleName

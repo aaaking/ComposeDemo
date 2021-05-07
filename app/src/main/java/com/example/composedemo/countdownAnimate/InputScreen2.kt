@@ -83,9 +83,7 @@ fun InputScreen2(onStart: (i: Int) -> Unit) {
             listOf((1..3), (4..6), (7..9)).forEach {
                 Row(modifier = Modifier.padding(10.dp)) {
                     it.forEach {
-                        InputButton(it) { it1 ->
-                            onClick(it1)
-                        }
+                        InputButton(it) { it1 -> onClick(it1) }
                     }
                 }
             }
@@ -112,7 +110,7 @@ fun InputScreen2(onStart: (i: Int) -> Unit) {
 @Composable
 fun RowScope.DisplayTime(
     num: String,
-    label: String,
+    label: String = "",
     heightLight: Boolean = true,
     fontSize: TextUnit = displayFontSize,
     labelSize: TextUnit = TextUnit.Unspecified,

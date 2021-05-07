@@ -51,7 +51,7 @@ fun CountdownScreen(timeInSec: Int, onCancel: () -> Unit) {
             .padding(start = 10.dp, end = 10.dp)
     ) {
         Box {
-            AnimationElapsedTime(elapsed)
+//            AnimationElapsedTime(elapsed)
             AnimationCircleCanvas(elapsed)
         }
 

@@ -1,16 +1,22 @@
 package com.example.composedemo.countdownAnimate
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Backspace
+import androidx.compose.material.icons.filled.PlayCircle
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.stringResource
@@ -23,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import com.codelab.basics.ui.typography
 import com.example.composedemo.R
 
+@ExperimentalAnimationApi
 @Composable
 fun InputScreen2(onStart: (i: Int) -> Unit) {
     var input by remember { mutableStateOf(emptyList<Int>()) }
@@ -82,6 +89,22 @@ fun InputScreen2(onStart: (i: Int) -> Unit) {
                     }
                 }
             }
+            Row(modifier = Modifier.padding(10.dp)) {
+                InputButton(0) {
+                    if (hasCountdownValue) onClick(0)
+                }
+            }
+            Spacer(modifier = Modifier.size(30.dp))
+            if (hasCountdownValue) {
+                Image(
+                    modifier = Modifier.align(Alignment.CenterHorizontally).size(70.dp)
+                        .shadow(30.dp, shape = CircleShape)
+                        .clickable { onStart(hou.toInt() * 60 * 60 + min.toInt() * 60 + sec.toInt()) },
+                    imageVector = Icons.Default.PlayCircle,
+                    contentDescription = null,
+                    colorFilter = ColorFilter.tint(MaterialTheme.colors.primary)
+                )
+            }
         }
     }
 }
@@ -95,7 +118,8 @@ fun RowScope.DisplayTime(
     labelSize: TextUnit = TextUnit.Unspecified,
     textAlign: TextAlign = TextAlign.End
 ) {
-    val textColor = if (heightLight) MaterialTheme.colors.primary else Color.Unspecified.copy(0.5f)
+    val textColor = if (heightLight) MaterialTheme.colors.primary
+    else Color.Unspecified.copy(alpha = 0.5f)
     Text(
         num,
         Modifier.weight(1f).align(Alignment.CenterVertically),

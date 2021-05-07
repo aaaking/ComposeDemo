@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.sp
 import com.codelab.basics.ui.typography
 import com.example.composedemo.R
 
-@ExperimentalAnimationApi
 @Composable
 fun InputScreen2(onStart: (i: Int) -> Unit) {
     var input by remember { mutableStateOf(listOf<Int>()) }

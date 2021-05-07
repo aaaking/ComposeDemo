@@ -32,7 +32,7 @@ import com.example.composedemo.R
 @ExperimentalAnimationApi
 @Composable
 fun InputScreen2(onStart: (i: Int) -> Unit) {
-    var input by remember { mutableStateOf(emptyList<Int>()) }
+    var input by remember { mutableStateOf(listOf<Int>()) }
     val (hou, min, sec) = remember(input) {
         mutableListOf<Int>().run {
             repeat(6 - input.size) {

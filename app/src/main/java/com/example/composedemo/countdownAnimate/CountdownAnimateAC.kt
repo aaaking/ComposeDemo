@@ -34,10 +34,14 @@ class CountdownAnimateAC : AppCompatActivity() {
             var screen by remember { mutableStateOf(Screen.Input) }
             when (screen) {
                 Screen.Input -> {
-                    Text(TAG + "MyApp: screen")
+                    InputScreen2 {
+                        timeInSec = it
+                        Log.i(TAG, " MyApp: it=${it}")
+                        screen = Screen.Countdown
+                    }
                 }
                 Screen.Countdown -> {
-                    Text(TAG + "MyApp: Countdown")
+                    Text(TAG + " MyApp: Countdown")
                 }
             }
         }
